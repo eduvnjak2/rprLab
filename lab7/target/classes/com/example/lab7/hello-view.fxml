@@ -18,7 +18,7 @@
           <RowConstraints maxHeight="98.0" minHeight="10.0" prefHeight="93.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <ListView fx:id="lista" fixedCellSize="0.0" prefHeight="229.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ListView fx:id="lista" fixedCellSize="0.0"  prefHeight="229.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <GridPane prefHeight="400.0" prefWidth="385.0" HBox.hgrow="ALWAYS">
