@@ -51,17 +51,18 @@ public class GlavnaController {
     }
 
     public void DodajDrzavuAction(ActionEvent actionEvent) throws IOException {
-        DrzavaController kontroler = new DrzavaController(null, GeografijaDAO.getInstance().gradovi());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("drzava.fxml"));
-        loader.setController(kontroler);
         Parent root = loader.load();
-        Stage stage = new Stage();
-        Scene scene = new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE);
-        stage.setTitle("Drzava");
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
-        stage.setOnHiding(lambda -> {
+
+        DrzavaController kontroler = loader.getController();
+
+        Stage novaFormaStage = new Stage();
+        novaFormaStage.setTitle("Država");
+        novaFormaStage.setScene(new Scene(root));
+        novaFormaStage.setResizable(false);
+        novaFormaStage.show();
+
+        novaFormaStage.setOnHiding(lambda -> {
             Drzava drzava = kontroler.getDrzavu();
             if (drzava != null) {
                 dao.dodajDrzavu(drzava);
@@ -72,27 +73,27 @@ public class GlavnaController {
     public void IzmijeniGradAction(ActionEvent actionEvent) throws IOException {
         if (tableViewGradovi.getSelectionModel().getSelectedItem() != null) {
             Grad grad = tableViewGradovi.getSelectionModel().getSelectedItem();
-            GradController kontroler = new GradController();
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("grad.fxml"));
-            loader.setController(kontroler);
             Parent root = loader.load();
+
+            GradController kontroler = loader.getController();
+
             Stage stage = new Stage();
-            Scene scene = new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE);
             stage.setTitle("Grad");
-            stage.setScene(scene);
+            stage.setScene(new Scene(root));
             stage.setResizable(false);
+
             kontroler.fieldNaziv.setText(grad.getNaziv());
             kontroler.fieldBrojStanovnika.setText(String.valueOf(grad.getBrojStanovnika()));
             kontroler.choiceDrzava.getSelectionModel().select(grad.getDrzava());
+
             stage.show();
+
             stage.setOnHiding(lambda -> {
                 Grad grad2 = kontroler.getGrad();
                 if (grad2 != null) {
-                    grad2.setId(grad.getId());
                     dao.izmijeniGrad(grad2);
-                    tableViewGradovi.getSelectionModel().getSelectedItem().setNaziv(grad2.getNaziv());
-                    tableViewGradovi.getSelectionModel().getSelectedItem().setBrojStanovnika(grad2.getBrojStanovnika());
-                    tableViewGradovi.getSelectionModel().getSelectedItem().setDrzava(grad2.getDrzava());
                     tableViewGradovi.refresh();
                 }
             });
@@ -100,17 +101,16 @@ public class GlavnaController {
     }
 
     public void dodajGradAction(ActionEvent actionEvent) throws IOException {
-        GradController kontroler = new GradController();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("grad.fxml"));
-        loader.setController(kontroler);
         Parent root = loader.load();
-        Stage stage = new Stage();
-        Scene scene = new Scene(root, USE_COMPUTED_SIZE, USE_COMPUTED_SIZE);
-        stage.setTitle("Grad");
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
-        stage.setOnHiding(lambda -> {
+        GradController kontroler = loader.getController();
+        Stage novaFormaStage = new Stage();
+        novaFormaStage.setTitle("Grad");
+        novaFormaStage.setScene(new Scene(root));
+        novaFormaStage.setResizable(false);
+        novaFormaStage.show();
+
+        novaFormaStage.setOnHiding(lambda -> {
             Grad grad = kontroler.getGrad();
             if (grad != null) {
                 dao.dodajGrad(grad);

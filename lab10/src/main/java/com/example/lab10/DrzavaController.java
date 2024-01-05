@@ -22,7 +22,7 @@ public class DrzavaController {
     GeografijaDAO dao = GeografijaDAO.getInstance();
     private ArrayList<Grad> gradovi2 = dao.gradovi();
     private ObservableList<Grad> gradovi = FXCollections.observableList(gradovi2);
-
+    public DrzavaController(){}
     public DrzavaController(Drzava drzava, ArrayList<Grad> gradovi) {
         this.drzava = drzava;
         this.gradovi2 = gradovi;
